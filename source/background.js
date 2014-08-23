@@ -119,6 +119,11 @@ function updateIcon(status, tabId)
 		title = "Tracing enabled";
 		image = "images/script.png";
 	}
+    else if (status == 4)
+    {
+        title = "HHVM enabled";
+        image = "images/hack.png";
+    }
 
 	// Update title
 	chrome.pageAction.setTitle({

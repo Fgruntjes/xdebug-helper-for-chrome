@@ -75,7 +75,11 @@ var xdebug = (function() {
 		{
 			var status = 0;
 
-			if (getCookie("XDEBUG_SESSION") == idekey)
+            if (getCookie("PHP_CONTEXT") == "hhvm")
+            {
+                status = 4;
+            }
+			else if (getCookie("XDEBUG_SESSION") == idekey)
 			{
 				status = 1;
 			}
@@ -101,33 +105,46 @@ var xdebug = (function() {
 		// Set the state
 		setStatus : function(status, idekey)
 		{
+            var cookieTime = 24 * 365;
 			if (status == 1)
 			{
 				// Set debugging on
-				setCookie("XDEBUG_SESSION", idekey, 24);
+				setCookie("XDEBUG_SESSION", idekey, cookieTime);
 				deleteCookie("XDEBUG_PROFILE");
 				deleteCookie("XDEBUG_TRACE");
+                setCookie("PHP_CONTEXT", 'phpfpm', cookieTime);
 			}
 			else if (status == 2)
 			{
 				// Set profiling on
 				deleteCookie("XDEBUG_SESSION");
-				setCookie("XDEBUG_PROFILE", idekey, 24);
+				setCookie("XDEBUG_PROFILE", idekey, cookieTime);
 				deleteCookie("XDEBUG_TRACE");
+                setCookie("PHP_CONTEXT", 'phpfpm', cookieTime);
 			}
 			else if (status == 3)
 			{
 				// Set tracing on
 				deleteCookie("XDEBUG_SESSION");
 				deleteCookie("XDEBUG_PROFILE");
-				setCookie("XDEBUG_TRACE", idekey, 24);
+				setCookie("XDEBUG_TRACE", idekey, cookieTime);
+                setCookie("PHP_CONTEXT", 'phpfpm', cookieTime);
 			}
+            else if (status == 4)
+            {
+                // Set tracing on
+                deleteCookie("XDEBUG_SESSION");
+                deleteCookie("XDEBUG_PROFILE");
+                deleteCookie("XDEBUG_TRACE");
+                setCookie("PHP_CONTEXT", 'hhvm', cookieTime);
+            }
 			else
 			{
 				// Disable all Xdebug functions
 				deleteCookie("XDEBUG_SESSION");
 				deleteCookie("XDEBUG_PROFILE");
 				deleteCookie("XDEBUG_TRACE");
+                deleteCookie("PHP_CONTEXT");
 			}
 
 			// Return the new status

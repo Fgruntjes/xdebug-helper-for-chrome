@@ -55,6 +55,7 @@ $(function() {
 	key("p", function() { $("#action-profile").click(); });
 	key("t", function() { $("#action-trace").click(); });
 	key("s", function() { $("#action-disable").click(); });
+    key("h", function() { $("#action-hhvm").click(); });
 	key("space,enter", function() { $("a:focus").click(); });
 	key("down,right", function()
 	{
