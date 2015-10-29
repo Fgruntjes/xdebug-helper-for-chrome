@@ -56,6 +56,7 @@ $(function() {
 	key("t", function() { $("#action-trace").click(); });
 	key("s", function() { $("#action-disable").click(); });
     key("h", function() { $("#action-hhvm").click(); });
+    key("v", function() { $("#action-hhvm-debug").click(); });
 	key("space,enter", function() { $("a:focus").click(); });
 	key("down,right", function()
 	{

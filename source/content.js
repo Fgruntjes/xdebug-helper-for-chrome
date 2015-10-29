@@ -75,7 +75,11 @@ var xdebug = (function() {
 		{
 			var status = 0;
 
-            if (getCookie("PHP_CONTEXT") == "hhvm")
+            if (getCookie("PHP_CONTEXT") == "hhvm" && getCookie("XDEBUG_SESSION") == idekey)
+            {
+                status = 5;
+            }
+            else if (getCookie("PHP_CONTEXT") == "hhvm")
             {
                 status = 4;
             }
@@ -91,6 +95,7 @@ var xdebug = (function() {
 			{
 				status = 3;
 			}
+
 
 			return status;
 		},
@@ -134,6 +139,14 @@ var xdebug = (function() {
             {
                 // Set tracing on
                 deleteCookie("XDEBUG_SESSION");
+                deleteCookie("XDEBUG_PROFILE");
+                deleteCookie("XDEBUG_TRACE");
+                setCookie("PHP_CONTEXT", 'hhvm', cookieTime);
+            }
+            else if (status == 5)
+            {
+                // Set debugging on
+                setCookie("XDEBUG_SESSION", idekey, cookieTime);
                 deleteCookie("XDEBUG_PROFILE");
                 deleteCookie("XDEBUG_TRACE");
                 setCookie("PHP_CONTEXT", 'hhvm', cookieTime);

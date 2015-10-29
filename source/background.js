@@ -124,6 +124,11 @@ function updateIcon(status, tabId)
         title = "HHVM enabled";
         image = "images/hack.png";
     }
+    else if (status == 5)
+    {
+        title = "HHVM Debug enabled";
+        image = "images/hack-debug.png";
+    }
 
 	// Update title
 	chrome.pageAction.setTitle({
